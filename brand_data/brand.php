@@ -50,7 +50,6 @@ if(isset($_POST['insertBtn'])){
 
 <br><br><br>
 
-
  <form action="" method="post">
         <div id="wrap">
             <label for="name">Product Name</label>
@@ -59,7 +58,7 @@ if(isset($_POST['insertBtn'])){
 
         <div id="wrap">
             <label for="official">Brand Name</label>
-            <select name="official" id="offical">
+            <select name="b_name" id="b_name">
               <?php
               $p_info = $db->query('select * from brand_data');
 
@@ -69,21 +68,19 @@ if(isset($_POST['insertBtn'])){
               ?>
             </select>
         </div>
-        
-        <div id="wrap">
-            <label for="official">Offcial</label>
-            <select name="official" id="offical">
-              <?php
-              $p_info = $db->query('select * from brand_data');
-
-              while(list( $b_id, $br_name, $offi) =  $p_info->fetch_row()){
-                echo "<option value='$b_id'>$offi</option>";
-              }
-              ?>
-            </select>
-        </div>
 
         <div>
-            <input type="submit" value="submit" name ="insertBtn">
+            <input type="submit" value="insert" name ="insertBt">
         </div>
     </form>
+
+<?php
+    $db = mysqli_connect('localhost', 'root', '', 'products');
+
+    if(isset($_POST['insertBt'])){
+        $p_name = $_POST['p_name'];
+        $b_name = $_POST['b_name'];
+        
+        $insert_b_data = $db->query("call product_info('$p_name', '$b_name')");
+    }
+?>
